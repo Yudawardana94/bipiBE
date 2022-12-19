@@ -1,21 +1,34 @@
+const knex = require('../db/db');
+
 class Controller {
-  static createMerchant(req, res, next) {
-    console.log('success --- createMerchant');
-    res.send('success --- createMerchant');
+  static async createMerchant(args) {
+    try {
+      await knex('merchants').insert(args);
+      return {
+        message: 'success add merchant data',
+      };
+    } catch (error) {
+      return error;
+    }
   }
-  static getMerchants(req, res, next) {
-    console.log('succes --- =s');
-    res.send('succes --- =s');
+  static async getMerchants() {
+    try {
+      const merchantlist = await knex.select().from('merchants');
+      return merchantlist;
+    } catch (error) {
+      return error;
+    }
   }
-  static getMerchantById(req, res, next) {
-    console.log('success --- getMerchantById');
-    res.send('success --- getMerchantById');
+  static async getMerchantById(args) {
+    const { id } = args;
+    const merchant = await knex('merchants').where({ id: id }).select();
+    return merchant[0];
   }
-  static UpdateMerchantById(req, res, next) {
+  static UpdateMerchantById() {
     console.log('success --- UpdateMerchantById');
     res.send('success --- UpdateMerchantById');
   }
-  static DeleteMerchantById(req, res, next) {
+  static DeleteMerchantById() {
     console.log('success --- DeleteMerchantById');
     res.send('success --- DeleteMerchantById');
   }

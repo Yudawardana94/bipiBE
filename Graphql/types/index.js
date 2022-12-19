@@ -40,5 +40,11 @@ const MerchantTypeQ = new GraphQLObjectType({
     recorder_date_time: { type: GraphQLString },
   },
 });
+const SuccessOperation = new GraphQLObjectType({
+  name: 'SuccessOperation',
+  fields: {
+    message: { type: GraphQLString },
+  },
+});
 
-module.exports = { MerchantType, MerchantTypeQ };
+module.exports = { MerchantType, MerchantTypeQ, SuccessOperation };

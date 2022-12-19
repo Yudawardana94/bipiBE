@@ -6,18 +6,7 @@ const {
   GraphQLObjectType,
 } = require('graphql');
 const MerchatController = require('../../controllers');
-const { MerchantType } = require('../types');
-// const axios = require('axios');
-
-// const dateScalar = new GraphQLScalarType({
-//   name: 'Date',
-//   parseValue(value) {
-//     return new Date(value);
-//   },
-//   serialize(value) {
-//     return value.toISOString();
-//   },
-// });
+const { MerchantType, SuccessOperation } = require('../types');
 
 const args = {
   id: { type: GraphQLString },
@@ -30,13 +19,11 @@ const args = {
 };
 
 const addMerchant = {
-  type: MerchantType,
+  type: SuccessOperation,
   args,
   resolve: async (_, args) => {
-    console.log('come here -- addMerchant');
     try {
       let data = await MerchatController.createMerchant(args);
-      console.log(data);
       return data;
     } catch (error) {
       return error;
@@ -47,7 +34,6 @@ const editMerchant = {
   type: MerchantType,
   args,
   resolve: async (_, args) => {
-    console.log('come here -- editMerchant');
     try {
       let data = await MerchatController.UpdateMerchantById(args);
       console.log(data);
