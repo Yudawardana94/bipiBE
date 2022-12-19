@@ -3,7 +3,7 @@ class Controller {
     console.log('success --- createMerchant');
     res.send('success --- createMerchant');
   }
-  static getMerchant(req, res, next) {
+  static getMerchants(req, res, next) {
     console.log('succes --- =s');
     res.send('succes --- =s');
   }
