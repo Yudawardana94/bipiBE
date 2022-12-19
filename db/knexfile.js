@@ -3,9 +3,9 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      database: 'Merchants',
-      user: 'mymac',
-      password: '',
+      database: process.env.KNEX_Connection_Database,
+      user: process.env.KNEX_Connection_User,
+      password: process.env.KNEX_Connection_Password,
     },
     pool: {
       min: 2,

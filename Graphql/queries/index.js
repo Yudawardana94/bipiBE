@@ -22,7 +22,6 @@ const getMerchantDetail = {
   type: MerchantTypeQ,
   args: { id: { type: new GraphQLNonNull(GraphQLID) } },
   resolve: async (_, args) => {
-    console.log('ca;; here');
     try {
       const data = await MerchantController.getMerchantById(args);
       return data;

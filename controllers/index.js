@@ -24,13 +24,24 @@ class Controller {
     const merchant = await knex('merchants').where({ id: id }).select();
     return merchant[0];
   }
-  static UpdateMerchantById() {
-    console.log('success --- UpdateMerchantById');
-    res.send('success --- UpdateMerchantById');
+  static async UpdateMerchantById(id, args) {
+    try {
+      await knex('merchants').where({ id }).update(args);
+      const updatedMerchant = await knex('merchants').where({ id }).select();
+      return updatedMerchant[0];
+    } catch (error) {
+      return error;
+    }
   }
-  static DeleteMerchantById() {
-    console.log('success --- DeleteMerchantById');
-    res.send('success --- DeleteMerchantById');
+  static async DeleteMerchantById({ id }) {
+    try {
+      await knex('merchants').where('id', id).del();
+      return {
+        message: 'Success delete merchant',
+      };
+    } catch (error) {
+      return error;
+    }
   }
 }
 

@@ -4,12 +4,13 @@ const {
   GraphQLBoolean,
   GraphQLScalarType,
   GraphQLObjectType,
+  GraphQLInt,
 } = require('graphql');
 const MerchatController = require('../../controllers');
 const { MerchantType, SuccessOperation } = require('../types');
 
 const args = {
-  id: { type: GraphQLString },
+  id: { type: GraphQLInt },
   merchant_name: { type: GraphQLString },
   phone_number: { type: GraphQLString },
   latitude: { type: GraphQLFloat },
@@ -35,8 +36,11 @@ const editMerchant = {
   args,
   resolve: async (_, args) => {
     try {
-      let data = await MerchatController.UpdateMerchantById(args);
-      console.log(data);
+      const id = args.id;
+      let newArgs = { ...args };
+      delete newArgs.id;
+
+      let data = await MerchatController.UpdateMerchantById(id, newArgs);
       return data;
     } catch (error) {
       return error;
@@ -44,13 +48,11 @@ const editMerchant = {
   },
 };
 const deleteMerchant = {
-  type: MerchantType,
-  args: { id: { type: GraphQLString } },
+  type: SuccessOperation,
+  args: { id: { type: GraphQLInt } },
   resolve: async (_, args) => {
-    console.log('come here -- deleteMerchant');
     try {
       let data = await MerchatController.DeleteMerchantById(args);
-      console.log(data);
       return data;
     } catch (error) {
       return error;
