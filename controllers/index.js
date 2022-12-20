@@ -19,7 +19,6 @@ class Controller {
         .offset(start);
       return merchantlist;
     } catch (error) {
-      console.log(error);
       return error;
     }
   }
