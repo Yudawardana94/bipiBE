@@ -3,15 +3,22 @@ const {
   GraphQLNonNull,
   GraphQLID,
   GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
 } = require('graphql');
 const MerchantController = require('../../controllers');
 const { MerchantTypeQ } = require('../types');
 
 const getMerchants = {
   type: new GraphQLList(MerchantTypeQ),
-  resolve: async () => {
+  args: {
+    order: { type: GraphQLString },
+    limit: { type: GraphQLInt },
+    start: { type: GraphQLInt },
+  },
+  resolve: async (_, args) => {
     try {
-      const data = await MerchantController.getMerchants();
+      const data = await MerchantController.getMerchants(args);
       return data;
     } catch (error) {
       return error;
