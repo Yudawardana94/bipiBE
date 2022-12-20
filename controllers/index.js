@@ -36,6 +36,27 @@ class Controller {
       return error;
     }
   }
+
+  static async UpdateMerchantActiveStatus({ id }) {
+    try {
+      console.log(id, '---id Arr');
+      const selectedMerchants = await knex('merchants')
+        .whereIn('id', id)
+        .select();
+      const updateMaterial = selectedMerchants.map((merchant) => {
+        return knex('merchants').where('id', merchant.id).update({
+          is_active: !merchant.is_active,
+        });
+      });
+      await Promise.all(updateMaterial);
+      return {
+        message: 'Success Update merchant status',
+      };
+    } catch (error) {
+      return error;
+    }
+  }
+
   static async DeleteMerchantById({ id }) {
     try {
       await knex('merchants').where('id', id).del();

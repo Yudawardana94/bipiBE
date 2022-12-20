@@ -2,9 +2,9 @@ const {
   GraphQLString,
   GraphQLFloat,
   GraphQLBoolean,
-  GraphQLScalarType,
   GraphQLObjectType,
   GraphQLInt,
+  GraphQLList,
 } = require('graphql');
 const MerchatController = require('../../controllers');
 const { MerchantType, SuccessOperation } = require('../types');
@@ -47,6 +47,20 @@ const editMerchant = {
     }
   },
 };
+const updateToogleMerchantStatus = {
+  type: SuccessOperation,
+  args: {
+    id: { type: new GraphQLList(GraphQLInt) },
+  },
+  resolve: async (_, args) => {
+    try {
+      let data = await MerchatController.UpdateMerchantActiveStatus(args);
+      return data;
+    } catch (error) {
+      return error;
+    }
+  },
+};
 const deleteMerchant = {
   type: SuccessOperation,
   args: { id: { type: GraphQLInt } },
@@ -65,6 +79,7 @@ const mutation = new GraphQLObjectType({
   fields: {
     addMerchant,
     editMerchant,
+    updateToogleMerchantStatus,
     deleteMerchant,
   },
 });
