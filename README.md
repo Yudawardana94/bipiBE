@@ -5,3 +5,8 @@
 - go to db folder
 - make migration with the command `knex migrate:latest`
 - run development on local machin by runiing this command `yarn dev`
+
+### Open graphql GUI
+
+- to open graphql gui access this link
+- `localhost:<port>/gql`
